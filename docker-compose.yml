@@ -1,0 +1,37 @@
+services:
+  mariadb:
+    build: ./database
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    volumes:
+      - ./database/datas:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    networks:
+      - backend-network
+
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mariadb
+    environment:
+      DB_HOST: mariadb
+      DB_USER: myuser
+      DB_PASSWORD: mypassword
+      DB_NAME: mydatabase
+      JWT_SECRET: mySuperSecretKey
+    networks:
+      - backend-network
+
+volumes:
+  mariadb-data:
+
+networks:
+  backend-network:
+    driver: bridge
+    
