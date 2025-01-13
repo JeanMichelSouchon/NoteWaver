@@ -1,0 +1,16 @@
+{
+  "name": "NoteWaver",
+  "version": "1.0.0",
+  "description": "Extension Chrome minimaliste pour prendre des notes, faire des to-do, etc.",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "NoteWaver"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "*://localhost/*"
+  ]
+}

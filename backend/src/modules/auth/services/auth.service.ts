@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import pool from '../../../common/database/db';
 import { User } from '../../users/models/user.interface';
-import { formatDateForMySQL } from '../../../common/utils/dateUtils';
 
 dotenv.config();
 
@@ -12,10 +11,10 @@ export class AuthService {
   // Méthodes pour interagir avec la base de données directement
 
   // Créer un nouvel utilisateur
-  private async createUser(username: string, email: string, passwordHash: string, isAdmin: boolean = true): Promise<number> {
+  private async createUser(username: string, email: string, passwordHash: string): Promise<number> {
     try {
-      const query = 'INSERT INTO user (username, email, password_hash, isAdmin) VALUES (?, ?, ?, ?)';
-      const [result] = await pool.query(query, [username, email, passwordHash, isAdmin]);
+      const query = 'INSERT INTO user (username, email, password_hash) VALUES (?, ?, ?)';
+      const [result] = await pool.query(query, [username, email, passwordHash]);
       const res = result as any;
       return res.insertId;
     } catch (err) {

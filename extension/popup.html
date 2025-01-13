@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>NoteWaver</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      min-width: 300px;
+      max-width: 400px;
+    }
+    .hidden {
+      display: none;
+    }
+    .container {
+      padding: 16px;
+    }
+    h1, h2 {
+      margin: 0 0 16px;
+      text-align: center;
+    }
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+      width: 100%;
+      padding: 8px;
+      margin: 4px 0;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 8px 16px;
+      margin-top: 8px;
+      cursor: pointer;
+    }
+    .message {
+      margin: 8px 0;
+      padding: 8px;
+      border-radius: 4px;
+    }
+    .error {
+      background-color: #f44336;
+      color: #fff;
+    }
+    .success {
+      background-color: #4caf50;
+      color: #fff;
+    }
+    .note-item {
+      background: #f9f9f9;
+      padding: 6px;
+      margin-bottom: 4px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- SECTION 1 : ACCUEIL (Choix entre Login/Signup) -->
+    <div id="section-home">
+      <h1>NoteWaver</h1>
+      <button id="btn-login">Se Connecter</button>
+      <button id="btn-signup">S'inscrire</button>
+    </div>
+
+    <!-- SECTION 2 : FORMULAIRE DE CONNEXION -->
+    <div id="section-login" class="hidden">
+      <h2>Connexion</h2>
+      <div id="login-message"></div>
+      <input type="text" id="login-identifier" placeholder="Email ou Pseudo" />
+      <input type="password" id="login-password" placeholder="Mot de passe" />
+      <button id="login-submit">Connexion</button>
+      <button id="login-back">Retour</button>
+    </div>
+
+    <!-- SECTION 3 : FORMULAIRE D'INSCRIPTION -->
+    <div id="section-signup" class="hidden">
+      <h2>Inscription</h2>
+      <div id="signup-message"></div>
+      <input type="text" id="signup-username" placeholder="Nom d'utilisateur" />
+      <input type="email" id="signup-email" placeholder="Email" />
+      <input type="password" id="signup-password" placeholder="Mot de passe" />
+      <button id="signup-submit">S'inscrire</button>
+      <button id="signup-back">Retour</button>
+    </div>
+
+    <!-- SECTION 4 : PAGE DES NOTES -->
+    <div id="section-notes" class="hidden">
+      <h2>Mes Notes</h2>
+      <div id="notes-message"></div>
+      <input type="text" id="note-input" placeholder="Nouvelle note..." />
+      <button id="note-add">Ajouter</button>
+      <ul id="notes-list"></ul>
+      <button id="logout-btn" style="background-color: #f44336; color: white; margin-top: 12px;">
+        Déconnexion
+      </button>
+    </div>
+    <!-- SECTION 5 : TODOLIST -->
+    <div id="section-ToDoList" class="hidden">
+      <h2>Mes ToDoList</h2>
+      <div id="ToDoList-message"></div>
+      <input type="text" id="note-input" placeholder="Nouvelle Tache..." />
+      <button id="TodoList-add">Ajouter</button>
+      <ul id="ToDoList-list"></ul>
+      <button id="logout-btn" style="background-color: #f44336; color: white; margin-top: 12px;">
+        Déconnexion
+      </button>
+    </div>
+
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
