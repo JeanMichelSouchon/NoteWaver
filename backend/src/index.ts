@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { NotesModule } from './modules/notes/notes.module';
 import * as Sentry from '@sentry/node';
 import { errorHandlerMiddleware } from './common/middlewares/errorHandler';
 
@@ -37,9 +38,11 @@ app.use(express.json());
 // Modules
 const usersModule = new UsersModule();
 const authModule = new AuthModule();
+const notesModule = new NotesModule();
 
 // Routes
 app.use('/auth', authModule.router);
+app.use('/notes', notesModule.router);
 app.use('/users', usersModule.router);
 app.get("/debug-sentry", function mainHandler(req, res) {
   const err = new Error("My first Sentry error!");  

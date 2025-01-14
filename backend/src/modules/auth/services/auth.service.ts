@@ -77,7 +77,7 @@ export class AuthService {
       return jwt.sign(
         { id: user.id, email: user.email },
         process.env.JWT_SECRET,
-        { expiresIn: '1h' }
+        { expiresIn: '1d' }
       );
     } catch (error) {
       console.error('Erreur lors de la génération du token JWT:', error);

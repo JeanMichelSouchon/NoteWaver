@@ -14,11 +14,11 @@ export class NotesService {
       const query = `
         SELECT id, content, created_at 
         FROM notes 
-        WHERE user_id = $1
+        WHERE user_id = ?
         ORDER BY created_at DESC
       `;
-      const { rows } = await pool.query(query, [userId]);
-      return rows; // Retourne les notes sous forme de tableau
+      const [result] = await pool.query(query, [userId]);
+      return result as any[]; // Typage des résultats
     } catch (error) {
       console.error('Erreur lors de la récupération des notes:', error);
       throw new Error('Impossible de récupérer les notes');
@@ -35,14 +35,32 @@ export class NotesService {
     try {
       const query = `
         INSERT INTO notes (user_id, content, created_at)
-        VALUES ($1, $2, NOW())
-        RETURNING id, content, created_at
+        VALUES (?, ?, NOW())
       `;
-      const { rows } = await pool.query(query, [userId, content]);
-      return rows[0]; // Retourne la note nouvellement créée
+      const [result]: any = await pool.query(query, [userId, content]);
+      return {
+        id: result.insertId, // ID généré automatiquement par MySQL
+        user_id: userId,
+        content,
+        created_at: new Date(), // Ajoutez l'heure actuelle
+      };
     } catch (error) {
       console.error('Erreur lors de l\'ajout de la note:', error);
       throw new Error('Impossible d\'ajouter la note');
     }
   }
+
+  // NotesService.ts
+  public async deleteNoteById(noteId: number, userId: number): Promise<boolean> {
+    try {
+      const query = 'DELETE FROM notes WHERE id = ? AND user_id = ?';
+      const [result]: any = await pool.query(query, [noteId, userId]);
+      return result.affectedRows > 0; // Retourne true si une ligne a été supprimée
+    } catch (error) {
+      console.error('Erreur lors de la suppression de la note:', error);
+      throw new Error('Impossible de supprimer la note');
+    }
+  }
+  
+
 }
